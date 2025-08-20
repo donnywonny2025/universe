@@ -2,21 +2,17 @@ import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 
-interface PlanetProps {
+interface MarsProps {
   position?: [number, number, number];
-  size?: number;
-  color?: string;
   orbitRadius?: number;
   speed?: number;
 }
 
-export function Planet({
-  position = [5, 0, 0],
-  size = 0.5,
-  color = '#0099ff',
-  orbitRadius = 5,
-  speed = 1,
-}: PlanetProps) {
+export function Mars({
+  position = [10, 0, -5],
+  orbitRadius = 10,
+  speed = 0.2,
+}: MarsProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
 
   useFrame(({ clock }) => {
@@ -27,11 +23,11 @@ export function Planet({
 
   return (
     <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[size, 32, 32]} />
+      <sphereGeometry args={[0.4, 32, 32]} />
       <meshStandardMaterial
-        color={color}
-        emissive={color}
-        emissiveIntensity={0.5}
+        color="#c1440e"
+        emissive="#c1440e"
+        emissiveIntensity={0.3}
         toneMapped={false}
       />
     </mesh>

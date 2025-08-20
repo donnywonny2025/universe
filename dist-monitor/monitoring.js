@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-const HELLO_URL = 'http://localhost:5173/hello.html';
+const APP_URL = 'http://localhost:5173/';
 const BROWSER_URL = 'http://127.0.0.1:9222'; // Default remote debugging port
 async function runMonitoring() {
     let browser;
@@ -11,17 +11,11 @@ async function runMonitoring() {
         // Explicitly open a new page to make the action visible
         page = await browser.newPage();
         console.log('📄 New tab opened.');
-        console.log(`🛰️  Navigating to ${HELLO_URL}...`);
-        await page.goto(HELLO_URL, { waitUntil: 'networkidle2' });
-        const headerContent = await page.$eval('h1', (el) => el.textContent);
-        if (headerContent === 'Hello World') {
-            console.log('✅ Success: Found "Hello World" in the h1 tag.');
-        }
-        else {
-            console.error(`💥 Failure: Expected "Hello World", but found "${headerContent}".`);
-        }
-        console.log('👀 Pausing for 5 seconds for visual confirmation...');
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        console.log(`🛰️  Navigating to ${APP_URL}...`);
+        await page.goto(APP_URL, { waitUntil: 'networkidle2' });
+        console.log('✅ Successfully navigated to the application.');
+        console.log('👀 Pausing for 10 seconds for visual confirmation of the 3D scene...');
+        await new Promise(resolve => setTimeout(resolve, 10000));
     }
     catch (error) {
         console.error('💥 Test failed:', error);
